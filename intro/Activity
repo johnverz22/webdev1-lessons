@@ -1,0 +1,11 @@
+## Instructions
+1. Search for your favorite song and get its lyrics online.
+2. Set the title of the document to the Lyric title
+3. Add an image that illustrates the idea of the song
+4. Place the title of the song in <h1>
+5. Place the name of the artist in <h3>
+6. Add a horizontal line <hr> to separate the lyrics from the title and artist.
+7. Add all the lyrics, with each stanza placed in a separate <p>
+8. Add another horizontal line
+9. In <h3>, add your full name.
+10. Create a link to the song that you found online
