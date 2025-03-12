@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/reset.css" />
+
+    <style>
+      h1 {
+        background-color: aqua;
+      }
+      h2 {
+        background-color: blueviolet;
+      }
+
+      span:first-of-type {
+        background-color: darkseagreen;
+      }
+
+      span:not(span:first-of-type) {
+        background-color: gold;
+      }
+
+      h1,
+      h2 {
+        display: inline-block;
+        text-align: center;
+        width: 400px;
+      }
+
+      span {
+        display: block;
+        text-align: center;
+      }
+
+      span:first-of-type {
+        position: relative;
+        top: 30px;
+        left: 50px;
+      }
+
+      .jollibee {
+        position: absolute;
+        top: 100px;
+        bottom: 30px;
+
+        /* display: none; */
+      }
+
+      body {
+        height: 2000px;
+      }
+
+      h1 {
+        position: fixed;
+        top: 300px;
+        z-index: 1;
+      }
+
+      .sticky {
+        position: sticky;
+        top: 5px;
+        color: red;
+        background-color: blanchedalmond;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Hello friends.</h1>
+    <h2>How are you?</h2>
+
+    <span>I love to </span>
+    <span class="jollibee"
+      >eat any food in Jollibee kasi may libreng coke float</span
+    >
+
+    <p class="sticky">Nag double order si Regin sa Jollibee kanina</p>
+  </body>
+</html>
