@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Todo App for Beginners</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .input-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        #todo-input {
+            flex-grow: 1;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+        }
+        #add-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        #add-button:hover {
+            background-color: #45a049;
+        }
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .todo-item.done {
+            background-color: #e9e9e9;
+            text-decoration: line-through;
+            color: #777;
+        }
+        .todo-text {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+        .delete-button {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #todo-stats {
+            margin-top: 20px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Simple Todo List</h1>
+    
+    <!-- Input area for new todos -->
+    <div class="input-container">
+        <input type="text" id="todo-input" placeholder="Enter a new task...">
+        <button id="add-button">Add</button>
+    </div>
+    
+    <!-- Container for todo items -->
+    <div id="todo-list">
+        <!-- Todo items will be added here by JavaScript -->
+    </div>
+    
+    <!-- Stats display -->
+    <div id="todo-stats">
+        <!-- Will show todo counts -->
+    </div>
+    
+    <script>
+        // ---- STEP 1: GET HTML ELEMENTS ----
+        // Get references to the HTML elements we'll need to work with
+        const todoInput = document.getElementById('todo-input');
+        const addButton = document.getElementById('add-button');
+        const todoList = document.getElementById('todo-list');
+        const todoStats = document.getElementById('todo-stats');
+        
+        // ---- STEP 2: SET UP OUR DATA ----
+        // This array will store all our todos
+        let todos = [];
+        
+        // ---- STEP 3: FUNCTION TO SAVE TODOS TO LOCAL STORAGE ----
+        function saveTodosToStorage() {
+            // Convert our todos array to a string so it can be stored
+            const todosString = JSON.stringify(todos);
+            
+            // Save the string to local storage under the key 'myTodos'
+            localStorage.setItem('myTodos', todosString);
+        }
+        
+        // ---- STEP 4: FUNCTION TO LOAD TODOS FROM LOCAL STORAGE ----
+        function loadTodosFromStorage() {
+            // Get the saved todos string from local storage
+            const savedTodos = localStorage.getItem('myTodos');
+            
+            // If we found saved todos, convert the string back to an array
+            if (savedTodos) {
+                todos = JSON.parse(savedTodos);
+            }
+        }
+        
+        // ---- STEP 5: FUNCTION TO DISPLAY TODOS ON THE PAGE ----
+        function displayTodos() {
+            // Clear the current list
+            todoList.innerHTML = '';
+            
+            // Loop through each todo and create HTML for it
+            for (let i = 0; i < todos.length; i++) {
+                const todo = todos[i];
+                
+                // Create a new div for this todo
+                const todoItem = document.createElement('div');
+                todoItem.className = 'todo-item';
+                
+                // If todo is completed, add the 'done' class
+                if (todo.completed) {
+                    todoItem.classList.add('done');
+                }
+                
+                // Fill the div with the todo content
+                todoItem.innerHTML = `
+                    <input type="checkbox" ${todo.completed ? 'checked' : ''}>
+                    <span class="todo-text">${todo.text}</span>
+                    <button class="delete-button">Delete</button>
+                `;
+                
+                // Get the checkbox and add change event
+                const checkbox = todoItem.querySelector('input[type="checkbox"]');
+                checkbox.addEventListener('change', function() {
+                    // Toggle the completed status of this todo
+                    todos[i].completed = !todos[i].completed;
+                    
+                    // Save the changes
+                    saveTodosToStorage();
+                    
+                    // Re-display the todos to update the UI
+                    displayTodos();
+                });
+                
+                // Get the delete button and add click event
+                const deleteButton = todoItem.querySelector('.delete-button');
+                deleteButton.addEventListener('click', function() {
+                    // Remove this todo from the array
+                    todos.splice(i, 1);
+                    
+                    // Save the changes
+                    saveTodosToStorage();
+                    
+                    // Re-display the todos to update the UI
+                    displayTodos();
+                });
+                
+                // Add the todo item to the list
+                todoList.appendChild(todoItem);
+            }
+            
+            // Update the stats
+            updateStats();
+        }
+        
+        // ---- STEP 6: FUNCTION TO UPDATE STATISTICS ----
+        function updateStats() {
+            // Count total, completed, and remaining
+            const total = todos.length;
+            
+            let completed = 0;
+            for (let i = 0; i < todos.length; i++) {
+                if (todos[i].completed) {
+                    completed++;
+                }
+            }
+            
+            const remaining = total - completed;
+            
+            // Update the stats display
+            todoStats.innerHTML = `
+                <p>Total: ${total} | Completed: ${completed} | Remaining: ${remaining}</p>
+            `;
+        }
+        
+        // ---- STEP 7: FUNCTION TO ADD A NEW TODO ----
+        function addNewTodo() {
+            // Get the text from the input
+            const todoText = todoInput.value.trim();
+            
+            // Don't add if the text is empty
+            if (todoText === '') {
+                alert('Please enter a task!');
+                return;
+            }
+            
+            // Create a new todo object
+            const newTodo = {
+                text: todoText,
+                completed: false,
+                id: Date.now() // Use current timestamp as unique ID
+            };
+            
+            // Add the new todo to our array
+            todos.push(newTodo);
+            
+            // Clear the input field
+            todoInput.value = '';
+            
+            // Save to local storage
+            saveTodosToStorage();
+            
+            // Update the display
+            displayTodos();
+        }
+        
+        // ---- STEP 8: SET UP EVENT LISTENERS ----
+        // When Add button is clicked
+        addButton.addEventListener('click', addNewTodo);
+        
+        // When Enter key is pressed in the input
+        todoInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addNewTodo();
+            }
+        });
+        
+        // ---- STEP 9: INITIALIZE THE APP ----
+        // Load any saved todos when the page loads
+        loadTodosFromStorage();
+        
+        // Display the todos
+        displayTodos();
+    </script>
+</body>
+</html>
