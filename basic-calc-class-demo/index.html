@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Calculator</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/alternative.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <h1>Basic Calculator</h1>
+
+      <div>
+        <input type="number" id="operand1" placeholder="First number" />
+        <input type="number" id="operand2" placeholder="Second number" />
+      </div>
+
+      <div>
+        <button onclick="compute('+')" id="add">+</button>
+        <button onclick="compute('-')" id="subtract">-</button>
+        <button onclick="compute('*')" id="multiply">x</button>
+        <button onclick="compute('/')" id="divide">&divide;</button>
+      </div>
+      <div class="spacer"></div>
+      <div>
+        <span id="result"></span>
+      </div>
+    </main>
+  </body>
+</html>

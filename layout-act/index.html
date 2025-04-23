@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 20px;
+            z-index: 1000;
+        }
+        .profile-container {
+            width: 80%;
+            max-width: 900px;
+            margin: 120px auto 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid white;
+            background-color: #ccc;
+        }
+        .profile-info {
+            text-align: center;
+            margin-top: 60px;
+        }
+        .bio {
+            padding: 20px;
+            text-align: justify;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            background: #005f73;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .skills {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            flex-wrap: wrap;
+        }
+        .skill-box {
+            width: 150px;
+            padding: 10px;
+            text-align: center;
+            background: #ca6702;
+            color: white;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        .contact {
+            text-align: center;
+            padding: 20px;
+        }
+        .contact a {
+            text-decoration: none;
+            color: #d00000;
+            font-weight: bold;
+        }
+        .experience, .projects {
+            padding: 20px;
+        }
+        .experience p, .projects p {
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed-header">My Profile</div>
+    
+    <div class="profile-container">
+        <img src="images/profile.png" class="profile-pic">
+        <div class="profile-info">
+            <h1>John Doe</h1>
+            <p>Software Engineer | UI/UX Designer</p>
+        </div>
+        <div class="sticky-nav">About Me</div>
+        <div class="bio">
+            <p>Hello! I am a passionate software engineer with expertise in front-end and back-end development. I enjoy creating seamless user experiences and building scalable applications.</p>
+        </div>
+        <div class="sticky-nav">Experience</div>
+        <div class="experience">
+            <p>I have worked in the tech industry for over 5 years, specializing in web development and UI/UX design. I have contributed to multiple projects ranging from startups to enterprise-level applications.</p>
+            <p>Previously, I worked at ABC Corp, where I developed a customer portal that improved user engagement by 30%.</p>
+            <p>At XYZ Inc., I led a team to redesign their mobile application, enhancing usability and performance.</p>
+        </div>
+        <div class="sticky-nav">Projects</div>
+        <div class="projects">
+            <p>Project A: A task management tool that helps teams collaborate efficiently.</p>
+            <p>Project B: An AI-powered chatbot for automating customer support responses.</p>
+            <p>Project C: A portfolio website generator that enables freelancers to showcase their work easily.</p>
+        </div>
+        <div class="sticky-nav">Skills</div>
+        <div class="skills">
+            <div class="skill-box">HTML & CSS</div>
+            <div class="skill-box">JavaScript</div>
+            <div class="skill-box">React.js</div>
+            <div class="skill-box">Node.js</div>
+            <div class="skill-box">UI/UX Design</div>
+        </div>
+        <div class="sticky-nav">Contact</div>
+        <div class="contact">
+            <p>Let's connect!</p>
+            <p>Email: <a href="mailto:john.doe@example.com">john.doe@example.com</a></p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,333 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Comprehensive Flexbox Tutorial</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-
-        .demo-section {
-            background-color: white;
-            border: 1px solid #ddd;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        .demo-section h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        /* Basic Flex Container */
-        .basic-flex {
-            display: flex;
-            background-color: #e9e9e9;
-            padding: 10px;
-        }
-
-        .basic-flex > div {
-            background-color: #4CAF50;
-            color: white;
-            margin: 5px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* Flex Direction Demonstration */
-        .flex-direction-row {
-            display: flex;
-            flex-direction: row;
-            background-color: #e9e9e9;
-            padding: 10px;
-        }
-
-        .flex-direction-column {
-            display: flex;
-            flex-direction: column;
-            background-color: #e9e9e9;
-            padding: 10px;
-        }
-
-        .flex-direction-row > div,
-        .flex-direction-column > div {
-            background-color: #2196F3;
-            color: white;
-            margin: 5px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        /* Justify Content Demonstration */
-        .justify-content-demos {
-            display: flex;
-            background-color: #e9e9e9;
-            height: 200px;
-            margin-bottom: 20px;
-        }
-
-        .justify-content-demos > div {
-            background-color: #FF9800;
-            color: white;
-            margin: 5px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .justify-start { justify-content: flex-start; }
-        .justify-end { justify-content: flex-end; }
-        .justify-center { justify-content: center; }
-        .justify-between { justify-content: space-between; }
-        .justify-around { justify-content: space-around; }
-        .justify-evenly { justify-content: space-evenly; }
-
-        /* Align Items Demonstration */
-        .align-items-demos {
-            display: flex;
-            background-color: #e9e9e9;
-            height: 300px;
-        }
-
-        .align-items-demos > div {
-            background-color: #9C27B0;
-            color: white;
-            margin: 5px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .align-stretch { align-items: stretch; }
-        .align-start { align-items: flex-start; }
-        .align-end { align-items: flex-end; }
-        .align-center { align-items: center; }
-        .align-baseline { align-items: baseline; }
-
-        /* Flex Wrap Demonstration */
-        .flex-wrap-demos {
-            display: flex;
-            flex-wrap: wrap;
-            background-color: #e9e9e9;
-        }
-
-        .flex-wrap-demos > div {
-            background-color: #673AB7;
-            color: white;
-            margin: 5px;
-            padding: 10px;
-            width: 100px;
-            text-align: center;
-        }
-
-        /* Flex Grow, Shrink, Basis */
-        .flex-grow-demos > div {
-            background-color: #FF5722;
-            color: white;
-            margin: 5px;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .flex-grow-0 { flex-grow: 0; }
-        .flex-grow-1 { flex-grow: 1; }
-        .flex-grow-2 { flex-grow: 2; }
-
-        /* Align Content */
-        .align-content-demos {
-            display: flex;
-            flex-wrap: wrap;
-            background-color: #e9e9e9;
-            height: 300px;
-        }
-
-        .align-content-demos > div {
-            background-color: #03A9F4;
-            color: white;
-            margin: 5px;
-            padding: 10px;
-            width: 100px;
-            text-align: center;
-        }
-
-        .align-content-start { align-content: flex-start; }
-        .align-content-end { align-content: flex-end; }
-        .align-content-center { align-content: center; }
-        .align-content-between { align-content: space-between; }
-        .align-content-around { align-content: space-around; }
-        .align-content-stretch { align-content: stretch; }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
     <h1>Comprehensive Flexbox Tutorial</h1>
 
     <!-- Basic Flex Container -->
     <div class="demo-section">
-        <h2>1. Basic Flex Container</h2>
-        <div class="basic-flex">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <p>Basic flex container with default behavior (flex-direction: row)</p>
+      <h2>1. Basic Flex Container</h2>
+      <div class="basic-flex">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <p>Basic flex container with default behavior (flex-direction: row)</p>
     </div>
 
     <!-- Flex Direction -->
     <div class="demo-section">
-        <h2>2. Flex Direction</h2>
-        <div>
-            <h3>Row (Default)</h3>
-            <div class="flex-direction-row">
-                <div>Item 1</div>
-                <div>Item 2</div>
-                <div>Item 3</div>
-            </div>
-            <h3>Column</h3>
-            <div class="flex-direction-column">
-                <div>Item 1</div>
-                <div>Item 2</div>
-                <div>Item 3</div>
-            </div>
+      <h2>2. Flex Direction</h2>
+      <div>
+        <h3>Row (Default)</h3>
+        <div class="flex-direction-row">
+          <div>Item 1</div>
+          <div>Item 2</div>
+          <div>Item 3</div>
         </div>
+        <h3>Column</h3>
+        <div class="flex-direction-column">
+          <div>Item 1</div>
+          <div>Item 2</div>
+          <div>Item 3</div>
+        </div>
+      </div>
     </div>
 
     <!-- Justify Content -->
     <div class="demo-section">
-        <h2>3. Justify Content</h2>
-        <h3>Flex-Start (Default)</h3>
-        <div class="justify-content-demos justify-start">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Flex-End</h3>
-        <div class="justify-content-demos justify-end">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Center</h3>
-        <div class="justify-content-demos justify-center">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Space Between</h3>
-        <div class="justify-content-demos justify-between">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Space Around</h3>
-        <div class="justify-content-demos justify-around">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Space Evenly</h3>
-        <div class="justify-content-demos justify-evenly">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
+      <h2>3. Justify Content</h2>
+      <h3>Flex-Start (Default)</h3>
+      <div class="justify-content-demos justify-start">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Flex-End</h3>
+      <div class="justify-content-demos justify-end">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Center</h3>
+      <div class="justify-content-demos justify-center">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Space Between</h3>
+      <div class="justify-content-demos justify-between">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Space Around</h3>
+      <div class="justify-content-demos justify-around">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Space Evenly</h3>
+      <div class="justify-content-demos justify-evenly">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
     </div>
 
     <!-- Align Items -->
     <div class="demo-section">
-        <h2>4. Align Items</h2>
-        <h3>Stretch (Default)</h3>
-        <div class="align-items-demos align-stretch">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Flex-Start</h3>
-        <div class="align-items-demos align-start">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Flex-End</h3>
-        <div class="align-items-demos align-end">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Center</h3>
-        <div class="align-items-demos align-center">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <h3>Baseline</h3>
-        <div class="align-items-demos align-baseline">
-            <div style="font-size: 20px;">Item 1</div>
-            <div style="font-size: 14px;">Item 2</div>
-            <div style="font-size: 16px;">Item 3</div>
-        </div>
+      <h2>4. Align Items</h2>
+      <h3>Stretch (Default)</h3>
+      <div class="align-items-demos align-stretch">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Flex-Start</h3>
+      <div class="align-items-demos align-start">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Flex-End</h3>
+      <div class="align-items-demos align-end">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Center</h3>
+      <div class="align-items-demos align-center">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+      </div>
+      <h3>Baseline</h3>
+      <div class="align-items-demos align-baseline">
+        <div style="font-size: 20px">Item 1</div>
+        <div style="font-size: 14px">Item 2</div>
+        <div style="font-size: 16px">Item 3</div>
+      </div>
     </div>
 
     <!-- Flex Wrap -->
     <div class="demo-section">
-        <h2>5. Flex Wrap</h2>
-        <div class="flex-wrap-demos">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-            <div>Item 4</div>
-            <div>Item 5</div>
-            <div>Item 6</div>
-            <div>Item 7</div>
-            <div>Item 8</div>
-        </div>
+      <h2>5. Flex Wrap</h2>
+      <div class="flex-wrap-demos">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+        <div>Item 7</div>
+        <div>Item 8</div>
+      </div>
     </div>
 
     <!-- Flex Grow -->
     <div class="demo-section">
-        <h2>6. Flex Grow</h2>
-        <div class="basic-flex flex-grow-demos">
-            <div class="flex-grow-0">No Grow</div>
-            <div class="flex-grow-1">Grow 1</div>
-            <div class="flex-grow-2">Grow 2</div>
-        </div>
+      <h2>6. Flex Grow</h2>
+      <div class="basic-flex flex-grow-demos">
+        <div class="flex-grow-0">No Grow</div>
+        <div class="flex-grow-1">Grow 1</div>
+        <div class="flex-grow-2">Grow 2</div>
+      </div>
     </div>
 
     <!-- Align Content -->
     <div class="demo-section">
-        <h2>7. Align Content</h2>
-        <h3>Flex-Start</h3>
-        <div class="align-content-demos align-content-start">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-            <div>Item 4</div>
-            <div>Item 5</div>
-            <div>Item 6</div>
-        </div>
-        <h3>Flex-End</h3>
-        <div class="align-content-demos align-content-end">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-            <div>Item 4</div>
-            <div>Item 5</div>
-            <div>Item 6</div>
-        </div>
-        <h3>Center</h3>
-        <div class="align-content-demos align-content-center">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-            <div>Item 4</div>
-            <div>Item 5</div>
-            <div>Item 6</div>
-        </div>
+      <h2>7. Align Content</h2>
+      <h3>Flex-Start</h3>
+      <div class="align-content-demos align-content-start">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+      </div>
+      <h3>Flex-End</h3>
+      <div class="align-content-demos align-content-end">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+      </div>
+      <h3>Center</h3>
+      <div class="align-content-demos align-content-center">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

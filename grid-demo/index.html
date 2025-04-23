@@ -1,256 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Complete CSS Grid Tutorial</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-
-        .demo-section {
-            background-color: white;
-            border: 1px solid #ddd;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 5px;
-        }
-
-        .demo-section h2 {
-            border-bottom: 2px solid #333;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        /* Basic Grid Container */
-        .basic-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            background-color: #e9e9e9;
-            padding: 10px;
-        }
-
-        .basic-grid > div {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* Grid Template Columns */
-        .grid-columns-demo {
-            display: grid;
-            grid-template-columns: 100px 200px auto;
-            gap: 10px;
-            background-color: #e9e9e9;
-        }
-
-        .grid-columns-demo > div {
-            background-color: #2196F3;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* Grid Template Rows */
-        .grid-rows-demo {
-            display: grid;
-            grid-template-rows: 100px 200px auto;
-            gap: 10px;
-            height: 500px;
-            background-color: #e9e9e9;
-        }
-
-        .grid-rows-demo > div {
-            background-color: #FF9800;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        /* Grid Template Areas */
-        .grid-areas-demo {
-            display: grid;
-            grid-template-areas: 
-                "header header header"
-                "sidebar main main"
-                "footer footer footer";
-            grid-template-columns: 1fr 2fr 2fr;
-            gap: 10px;
-            height: 500px;
-        }
-
-        .grid-areas-demo > div {
-            background-color: #9C27B0;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .header { grid-area: header; }
-        .sidebar { grid-area: sidebar; }
-        .main { grid-area: main; }
-        .footer { grid-area: footer; }
-
-        /* Grid Item Placement */
-        .grid-placement-demo {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-auto-rows: 100px;
-            gap: 10px;
-            background-color: #e9e9e9;
-        }
-
-        .grid-placement-demo > div {
-            background-color: #673AB7;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .grid-item-1 {
-            grid-column: 1 / 3;
-            grid-row: 1 / 3;
-        }
-
-        .grid-item-2 {
-            grid-column: 3 / 5;
-            grid-row: 1 / 2;
-        }
-
-        /* Justify and Align */
-        .grid-justify-align-demo {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            justify-content: center;
-            align-content: center;
-            height: 300px;
-            gap: 10px;
-            background-color: #e9e9e9;
-        }
-
-        .grid-justify-align-demo > div {
-            background-color: #03A9F4;
-            color: white;
-            width: 50px;
-            height: 50px;
-            text-align: center;
-            line-height: 50px;
-        }
-
-        /* Auto Fit and Auto Fill */
-        .grid-auto-demo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 10px;
-            background-color: #e9e9e9;
-        }
-
-        .grid-auto-demo > div {
-            background-color: #FF5722;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
     <h1>Comprehensive CSS Grid Tutorial</h1>
 
     <!-- Basic Grid Container -->
     <div class="demo-section">
-        <h2>1. Basic Grid Container</h2>
-        <div class="basic-grid">
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-            <div>Item 4</div>
-            <div>Item 5</div>
-            <div>Item 6</div>
-        </div>
-        <p>Basic grid with equal-width columns using <code>grid-template-columns: repeat(3, 1fr)</code></p>
+      <h2>1. Basic Grid Container</h2>
+      <div class="basic-grid">
+        <div>Item 1</div>
+        <div>Item 2</div>
+        <div>Item 3</div>
+        <div>Item 4</div>
+        <div>Item 5</div>
+        <div>Item 6</div>
+      </div>
+      <p>
+        Basic grid with equal-width columns using
+        <code>grid-template-columns: repeat(3, 1fr)</code>
+      </p>
     </div>
 
     <!-- Grid Template Columns -->
     <div class="demo-section">
-        <h2>2. Grid Template Columns</h2>
-        <div class="grid-columns-demo">
-            <div>Fixed 100px</div>
-            <div>Fixed 200px</div>
-            <div>Remaining Space</div>
-        </div>
-        <p>Demonstrates different column sizing: fixed widths and auto-fill</p>
+      <h2>2. Grid Template Columns</h2>
+      <div class="grid-columns-demo">
+        <div>Fixed 100px</div>
+        <div>Fixed 200px</div>
+        <div>Remaining Space</div>
+      </div>
+      <p>Demonstrates different column sizing: fixed widths and auto-fill</p>
     </div>
 
     <!-- Grid Template Rows -->
     <div class="demo-section">
-        <h2>3. Grid Template Rows</h2>
-        <div class="grid-rows-demo">
-            <div>Fixed 100px Height</div>
-            <div>Fixed 200px Height</div>
-            <div>Remaining Space</div>
-        </div>
-        <p>Shows row height control with <code>grid-template-rows</code></p>
+      <h2>3. Grid Template Rows</h2>
+      <div class="grid-rows-demo">
+        <div>Fixed 100px Height</div>
+        <div>Fixed 200px Height</div>
+        <div>Remaining Space</div>
+      </div>
+      <p>Shows row height control with <code>grid-template-rows</code></p>
     </div>
 
     <!-- Grid Template Areas -->
     <div class="demo-section">
-        <h2>4. Grid Template Areas</h2>
-        <div class="grid-areas-demo">
-            <div class="header">Header</div>
-            <div class="sidebar">Sidebar</div>
-            <div class="main">Main Content</div>
-            <div class="footer">Footer</div>
-        </div>
-        <p>Layout using named grid areas for responsive design</p>
+      <h2>4. Grid Template Areas</h2>
+      <div class="grid-areas-demo">
+        <div class="header">Header</div>
+        <div class="sidebar">Sidebar</div>
+        <div class="main">Main Content</div>
+        <div class="footer">Footer</div>
+      </div>
+      <p>Layout using named grid areas for responsive design</p>
     </div>
 
     <!-- Grid Item Placement -->
     <div class="demo-section">
-        <h2>5. Grid Item Placement</h2>
-        <div class="grid-placement-demo">
-            <div class="grid-item-1">Spans Multiple Rows/Columns</div>
-            <div class="grid-item-2">Specific Placement</div>
-            <div>Regular Item</div>
-            <div>Regular Item</div>
-            <div>Regular Item</div>
-            <div>Regular Item</div>
-        </div>
-        <p>Custom item placement using <code>grid-column</code> and <code>grid-row</code></p>
+      <h2>5. Grid Item Placement</h2>
+      <div class="grid-placement-demo">
+        <div class="grid-item-1">Spans Multiple Rows/Columns</div>
+        <div class="grid-item-2">Specific Placement</div>
+        <div>Regular Item</div>
+        <div>Regular Item</div>
+        <div>Regular Item</div>
+        <div>Regular Item</div>
+      </div>
+      <p>
+        Custom item placement using <code>grid-column</code> and
+        <code>grid-row</code>
+      </p>
     </div>
 
     <!-- Justify and Align -->
     <div class="demo-section">
-        <h2>6. Grid Justify and Align</h2>
-        <div class="grid-justify-align-demo">
-            <div>1</div>
-            <div>2</div>
-            <div>3</div>
-            <div>4</div>
-            <div>5</div>
-            <div>6</div>
-        </div>
-        <p>Centering grid items using <code>justify-content</code> and <code>align-content</code></p>
+      <h2>6. Grid Justify and Align</h2>
+      <div class="grid-justify-align-demo">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+      </div>
+      <p>
+        Centering grid items using <code>justify-content</code> and
+        <code>align-content</code>
+      </p>
     </div>
 
     <!-- Auto Fit and Auto Fill -->
     <div class="demo-section">
-        <h2>7. Auto Fit and Auto Fill</h2>
-        <div class="grid-auto-demo">
-            <div>Responsive Item 1</div>
-            <div>Responsive Item 2</div>
-            <div>Responsive Item 3</div>
-            <div>Responsive Item 4</div>
-            <div>Responsive Item 5</div>
-            <div>Responsive Item 6</div>
-        </div>
-        <p>Responsive grid with <code>auto-fit</code> and <code>minmax()</code></p>
+      <h2>7. Auto Fit and Auto Fill</h2>
+      <div class="grid-auto-demo">
+        <div>Responsive Item 1</div>
+        <div>Responsive Item 2</div>
+        <div>Responsive Item 3</div>
+        <div>Responsive Item 4</div>
+        <div>Responsive Item 5</div>
+        <div>Responsive Item 6</div>
+      </div>
+      <p>
+        Responsive grid with <code>auto-fit</code> and <code>minmax()</code>
+      </p>
     </div>
-</body>
+  </body>
 </html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript 101</title>
+
+    <script defer>
+      //VAR
+      let firstName = "Kiluah";
+      let lastName = "Nisperos";
+      //let fullName = firstName + ' ' + lastName
+      let fullName = `${firstName} ${lastName}`;
+
+      console.log(`Hello ${fullName}`);
+      let gender = "Male";
+      console.log(gender);
+
+      //FUNCTION
+      function changeText() {
+        //DOM element manipulation
+        document.getElementById("text").textContent =
+          "Javascript really is fun. I'm exited for more";
+      }
+
+      //CONSTANTS
+      const NUMBER_OF_LIFE = 9;
+      console.log(
+        `You only have ${NUMBER_OF_LIFE} life. So go and make most out of it`
+      );
+
+      if (NUMBER_OF_LIFE > 1) {
+        console.log("You are a cat");
+      } else {
+        console.log("You are a human");
+      }
+
+      let num = 50;
+      if (num != "50") {
+        console.log("SAME SAME");
+      } else {
+        console.log("DIFF DIFF");
+      }
+
+      let c = 2;
+      switch (c) {
+        case 1:
+        case 3:
+        case 5:
+          console.log("odd numbers");
+          break;
+        case 2:
+        case 4:
+        case 6:
+          console.log("even");
+          break;
+        default:
+          console.log("out of range");
+      }
+
+      //LOOP
+      //display i love 1, i love 2....i love 1000
+      for (let x = 1; x <= 1000; x++) {
+        console.log(`I love ${x}`);
+      }
+
+      //ARRAY
+    </script>
+  </head>
+  <body>
+    <main>
+      <h1 id="text">Hello JavaScript</h1>
+      <button onclick="changeText()">Click Me</button>
+    </main>
+  </body>
+</html>
