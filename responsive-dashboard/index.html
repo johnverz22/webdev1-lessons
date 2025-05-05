@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            background-color: #f5f7fa;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 256px;
+            height: 100vh;
+            background-color: #fff;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            z-index: 100;
+        }
+
+        .sidebar.collapsed {
+            width: 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .logo svg {
+            margin-right: 10px;
+        }
+
+        .logo span {
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.collapsed .logo span {
+            opacity: 0;
+            display: none;
+        }
+
+        .sidebar.collapsed .menu-item span {
+            opacity: 0;
+            display: none;
+        }
+
+        .menu {
+            padding: 10px;
+            list-style-type: none;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .menu-item.active {
+            background-color: #6c38e8;
+            color: white;
+        }
+
+        .menu-item svg {
+            margin-right: 10px;
+            min-width: 24px;
+        }
+
+        .menu-item .arrow {
+            margin-left: auto;
+        }
+
+        .user-profile {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border-top: 1px solid #eee;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-details {
+            transition: opacity 0.3s;
+        }
+
+        .sidebar.collapsed .user-details {
+            opacity: 0;
+            display: none;
+        }
+
+        .toggle-btn {
+            position: absolute;
+            top: 20px;
+            right: -12px;
+            width: 24px;
+            height: 24px;
+            background-color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            z-index: 101;
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 256px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main-content.expanded {
+            margin-left: 60px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .greeting {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .search-bar {
+            background-color: white;
+            border-radius: 20px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar input {
+            border: none;
+            outline: none;
+            margin-left: 10px;
+            width: 200px;
+        }
+
+        /* Stats cards */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e6f7ee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+
+        .stat-icon.green {
+            background-color: #e6f7ee;
+        }
+
+        .stat-icon.blue {
+            background-color: #e6eef7;
+        }
+
+        .stat-details h3 {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .stat-details .number {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-details .change {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .change.up {
+            color: #28a745;
+        }
+
+        .change.down {
+            color: #dc3545;
+        }
+
+        .avatars {
+            display: flex;
+            margin-top: 5px;
+        }
+
+        .avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: -8px;
+            border: 2px solid white;
+        }
+
+        /* Customers table */
+        .customers-container {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .customers-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .customers-title {
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        .customers-subtitle {
+            font-size: 14px;
+            color: #2ecc71;
+            margin-top: 5px;
+        }
+
+        .search-sort {
+            display: flex;
+            align-items: center;
+        }
+
+        .table-search {
+            background-color: #f5f7fa;
+            border-radius: 8px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .table-search input {
+            border: none;
+            outline: none;
+            background-color: transparent;
+            margin-left: 10px;
+            width: 150px;
+        }
+
+        .sort-by {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .sort-by select {
+            border: none;
+            outline: none;
+            margin-left: 5px;
+            font-weight: 500;
+            color: #333;
+            background-color: transparent;
+        }
+
+        .customers-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .customers-table th {
+            text-align: left;
+            padding: 15px 10px;
+            font-weight: 500;
+            color: #888;
+            border-bottom: 1px solid #eee;
+        }
+
+        .customers-table td {
+            padding: 15px 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .customers-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            text-align: center;
+            width: 80px;
+        }
+
+        .status.active {
+            background-color: #e6f7ee;
+            color: #2ecc71;
+        }
+
+        .status.inactive {
+            background-color: #fbe9e7;
+            color: #e74c3c;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: #888;
+            margin-right: 20px;
+        }
+
+        .page-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .page-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .page-btn.active {
+            background-color: #6c38e8;
+            color: white;
+        }
+
+        .upgrade-card {
+            background: linear-gradient(135deg, #a17fe0, #5d34c3);
+            color: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .upgrade-text {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-btn {
+            background-color: white;
+            color: #5d34c3;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 60px;
+            }
+            
+            .sidebar .logo span,
+            .sidebar .menu-item span,
+            .sidebar .user-details {
+                opacity: 0;
+                display: none;
+            }
+            
+            .main-content {
+                margin-left: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-bar {
+                margin-top: 15px;
+            }
+            
+            .customers-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-sort {
+                margin-top: 15px;
+                width: 100%;
+            }
+            
+            .table-search {
+                flex: 1;
+            }
+            
+            .customers-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            </svg>
+            <span>Dashboard</span>
+            <div class="toggle-btn" id="toggle-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </div>
+        </div>
+        <ul class="menu">
+            <li class="menu-item active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                </svg>
+                <span>Dashboard</span>
+            </li>
+            <li class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                </svg>
+                <span>Product</span>
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </li>
+            <li class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Customers</span>
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </li>
+            <li class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+                <span>Income</span>
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </li>
+            <li class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                <span>Promote</span>
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </li>
+            <li class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                <span>Help</span>
+                <svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </li>
+        </ul>
+        <div class="user-profile">
+            <img src="/api/placeholder/40/40" alt="User">
+            <div class="user-details">
+                <div>Evano</div>
+                <div style="font-size: 12px; color: #888;">Project Manager</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <div class="header">
+            <div class="greeting">Hello Evano 👋,</div>
+            <div class="search-bar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" placeholder="Search">
+            </div>
+        </div>
+
+        <div class="stats-container">
+            <!-- Total Customers -->
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+                <div class="stat-details">
+                    <h3>Total Customers</h3>
+                    <div class="number">5,423</div>
+                    <div class="change up">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                        16% this month
+                    </div>
+                </div>
+            </div>
+
+            <!-- Members -->
+            <div class="stat-card">
+                <div class="stat-icon green">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <div class="stat-details">
+                    <h3>Members</h3>
+                    <div class="number">1,893</div>
+                    <div class="change down">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                        1% this month
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Now -->
+            <div class="stat-card">
+                <div class="stat-icon blue">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </div>
+                <div class="stat-details">
+                    <h3>Active Now</h3>
+                    <div class="number">189</div>
+                    <div class="avatars">
+                        <img class="avatar" src="/api/placeholder/24/24" alt="User">
+                        <img class="avatar" src="/api/placeholder/24/24" alt="User">
+                        <img class="avatar" src="/api/placeholder/24/24" alt="User">
+                        <img class="avatar" src="/api/placeholder/24/24" alt="User">
+                        <img class="avatar" src="/api/placeholder/24/24" alt="User">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="customers-container">
+            <div class="customers-header">
+                <div>
+                    <div class="customers-title">All Customers</div>
+                    <div class="customers-subtitle">Active Members</div>
+                </div>
+                <div class="search-sort">
+                    <div class="table-search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" placeholder="Search">
+                    </div>
+                    <div class="sort-by">
+                        <span>Short by:</span>
+                        <select>
+                            <option>Newest</option>
+                            <option>Oldest</option>
+                            <option>A-Z</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <table class="customers-table">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Company</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Country</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jane Cooper</td>
+                        <td>Microsoft</td>
+                        <td>(225) 555-0118</td>
+                        <td>jane@microsoft.com</td>
+                        <td>United States</td>
+                        <td><div class="status active">Active</div></td>
+                    </tr>
+                    <tr>
+                        <td>Floyd Miles</td>
+                        <td>Yahoo</td>
+                        <td>(205) 555-0100</td>
+                        <td>floyd@yahoo.com</td>
+                        <td>Kiribati</td>
+                        <td><div class="status inactive">Inactive</div></td>
+                    </tr>
+                    <tr>
+                        <td>Ronald Richards</td>
+                        <td>Adobe</td>
+                        <td>(302) 555-0107</td>
+                        <td>ronald@adobe.com</td>
+                        <td>Israel</td>
+                        <td><div class="status inactive">Inactive</div></td>
+                    </tr>
+                    <tr>
+                        <td>Marvin McKinney</td>
+                        <td>Tesla</td>
+                        <td>(252) 555-0126</td>
+                        <td>marvin@tesla.com</td>
+                        <td>Iran</td>
+                        <td><div class="status active">Active</div></td>
+                    </tr>
+                    <tr>
+                        <td>Jerome Bell</td>
+                        <td>Google</td>
+                        <td>(629) 555-0129</td>
+                        <td>jerome@google.com</td>
+                        <td>Réunion</td>
+                        <td><div class="status active">Active</div></td>
+                    </tr>
+                    <tr>
+                        <td>Kathryn Murphy</td>
+                        <td>Microsoft</td>
+                        <td>(406) 555-0120</td>
+                        <td>kathryn@microsoft.com</td>
+                        <td>Curaçao</td>
+                        <td><div class="status active">Active</div></td>
+                    </tr>
+                    <tr>
+                        <td>Jacob Jones</td>
+                        <td>Yahoo</td>
+                        <td>(208) 555-0112</td>
+                        <td>jacob@yahoo.com</td>
+                        <td>Brazil</td>
+                        <td><div class="status active">Active</div></td>
+                    </tr>
+                    <tr>
+                        <td>Kristin Watson</td>
+                        <td>Facebook</td>
+                        <td>(704) 555-0127</td>
+                        <td>kristin@facebook.com</td>
+                        <td>Åland Islands</td>
+                        <td><div class="status inactive">Inactive</div></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <div class="page-info">Showing data 1 to 8 of 256K entries</div>
+                <div class="page-controls">
+                    <div class="page-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </div>
+                    <div class="page-btn active">1</div>
+                    <div class="page-btn">2</div>
+                    <div class="page-btn">3</div>
+                    <div class="page-btn">4</div>
+                    <div class="page-btn">...</div>
+                    <div class="page-btn">40</div>
+                    <div class="page-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="upgrade-card">
+            <div class="upgrade-text">Upgrade to PRO to get access all Features!</div>
+            <button class="upgrade-btn">Get Pro Now!
