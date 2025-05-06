@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <aside>
+      <ul>
+        <li>Link 1</li>
+        <li>Link 2</li>
+        <li>Link 3</li>
+        <li>Link 4</li>
+      </ul>
+      <div class="close-menu">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#1f1f1f"
+        >
+          <path
+            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+          />
+        </svg>
+      </div>
+    </aside>
+    <main>
+      <div class="menu-toggle">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          fill="#1f1f1f"
+        >
+          <path
+            d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"
+          />
+        </svg>
+      </div>
+
+      <p>Content goes here</p>
+    </main>
+
+    <script>
+      const sidebar = document.querySelector("aside");
+
+      document
+        .querySelector(".menu-toggle")
+        .addEventListener("click", function () {
+          //toggle the sidebar's visibility
+          sidebar.classList.toggle("visible");
+        });
+      document
+        .querySelector(".close-menu")
+        .addEventListener("click", function () {
+          //toggle the sidebar's visibility
+          sidebar.classList.toggle("visible");
+        });
+    </script>
+  </body>
+</html>

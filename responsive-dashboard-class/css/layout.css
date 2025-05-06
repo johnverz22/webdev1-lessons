@@ -1,0 +1,97 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@400;600;700;900&display=swap');
+
+:root {
+    --font-sans: "Poppins",  sans-serif;
+    --primary-color: #FAFBFF;
+    --accent-color: #5932EA;
+    --tertiary-color: white;
+    --primary-menu-color: #9197B3;
+    --secondary-menu-color: white;
+    --secondary-color: black;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    margin: 0;
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: 306px 1fr;
+    grid-template-areas: "sidebar main";
+}
+
+aside{
+    grid-area: sidebar;
+    background-color: var(--tertiary-color);
+}
+
+main{
+    grid-area: main;
+}
+
+.brand{
+    margin-bottom: 60px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand span{
+    font-weight: 600;
+}
+
+.logo{
+    height: 37px;
+    width: auto;
+}
+
+aside{
+    padding: 36px;
+}
+
+aside ul{
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+aside ul li{
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--primary-menu-color);
+    border-radius: 8px;
+    width: 100%;
+    height: 46px;
+    padding: 11px;
+    cursor: pointer;
+}
+
+aside ul li svg *{
+    stroke: var(--primary-menu-color);
+}
+
+aside ul li.active{
+    background-color: var(--accent-color);
+
+    color: var(--secondary-menu-color);
+}
+
+aside ul li:hover{
+    color: var(--secondary-menu-color);
+    background-color: var(--accent-color);
+}
+
+aside ul li.active svg *, aside ul li:hover svg *{
+    stroke: var(--secondary-menu-color);
+}
