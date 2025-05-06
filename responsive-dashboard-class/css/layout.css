@@ -12,6 +12,7 @@
     --accent-color: #5932EA;
     --tertiary-color: white;
     --primary-menu-color: #9197B3;
+    --menu-hover-color: #f0f0f0;
     --secondary-menu-color: white;
     --secondary-color: black;
 }
@@ -31,6 +32,9 @@ body {
 aside{
     grid-area: sidebar;
     background-color: var(--tertiary-color);
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 main{
@@ -64,11 +68,16 @@ aside ul{
     gap: 7px;
 }
 
-
-aside ul li{
+aside ul li a{
+    text-decoration: none;
+    color: var(--primary-menu-color);
     display: flex;
     align-items: center;
     gap: 14px;
+}
+
+aside ul li{
+    
     color: var(--primary-menu-color);
     border-radius: 8px;
     width: 100%;
@@ -77,21 +86,50 @@ aside ul li{
     cursor: pointer;
 }
 
+
+
 aside ul li svg *{
     stroke: var(--primary-menu-color);
 }
 
 aside ul li.active{
     background-color: var(--accent-color);
-
     color: var(--secondary-menu-color);
 }
 
 aside ul li:hover{
     color: var(--secondary-menu-color);
-    background-color: var(--accent-color);
+    background-color: var(--menu-hover-color);
 }
 
-aside ul li.active svg *, aside ul li:hover svg *{
+aside ul li.active a svg *, aside ul li:hover a svg *{
     stroke: var(--secondary-menu-color);
+}
+
+.user-profile{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.user-profile img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-profile > .info > h1{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--secondary-color)
+}
+
+.user-profile > .info > span{
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: var(--primary-menu-color);
 }
