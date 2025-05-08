@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:wght@400;600;700;900&display=swap');
+
+/* css reset */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --primary-color: #fff;
+    --secondary-color: #000;
+    --tertiary-color: #FAFBFF;
+    --accent-color: #5932EA;
+    --font-family: "Poppins", sans-serif;
+    --menu-text-color: #9197B3;
+}
+
+body{
+    display: grid;
+    grid-template-columns: 306px 1fr;
+    height: 100vh;
+    transition: all .4s ease;
+    font-family: var(--font-family);
+}
+
+aside{
+    grid-column: 1 / 2;
+    background-color: var(--primary-color);
+    padding: 36px 28px 72px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.brand{
+    margin-bottom: 64px;
+    display:flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand span{
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.brand img{
+    height: 37px;
+
+}
+
+
+.menu ul{
+    list-style-type: none;
+}
+
+.menu  a{
+    text-decoration: none;
+    color: var(--menu-text-color)
+}
+
+main{
+    grid-column: 2 / 3;
+    background-color: var(--tertiary-color);
+}
+
+@media(max-width: 48em){ /* 768px/16px = 48em*/
+    body{
+        grid-template-columns: 102px 1fr;
+    }
+}
