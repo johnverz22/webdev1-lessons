@@ -14,6 +14,7 @@
     --accent-color: #5932EA;
     --font-family: "Poppins", sans-serif;
     --menu-text-color: #9197B3;
+    --menu-hover-color: #f0f0f0;
 }
 
 body{
@@ -34,31 +35,60 @@ aside{
 }
 
 .brand{
-    margin-bottom: 64px;
-    display:flex;
+    display: flex;
     align-items: center;
     gap: 8px;
+    margin-bottom: 53px;
 }
 
 .brand span{
+    font-size: 26px;
     font-weight: 600;
-    font-size: 18px;
 }
-
-.brand img{
+.brand img.logo{
+    width: 37px;
     height: 37px;
-
 }
 
 
-.menu ul{
+.menu  ul{
     list-style-type: none;
 }
 
-.menu  a{
-    text-decoration: none;
-    color: var(--menu-text-color)
+.menu  li{
+    display: flex;
+    align-items: center;
+    padding: 11px;
+    border-radius: 8px;
+    color: var(--menu-text-color);
+    margin-bottom: 18px;
 }
+
+.menu li svg{
+    margin-right: 14px;
+}
+
+.menu li :nth-child(2){
+    flex-grow: 1;
+}
+
+.menu li.active{
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.menu li.active svg > *{
+    stroke: var(--primary-color);
+}
+
+.menu li:hover{
+    background-color: var(--menu-hover-color);
+    color: var(--secondary-color);
+}
+.menu li:hover svg > *{
+    stroke: var(--secondary-color);
+}
+
 
 main{
     grid-column: 2 / 3;
